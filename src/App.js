@@ -25,8 +25,6 @@ function App() {
         }}
         onPointerDown={() => setSt1(true)}
         onPointerUp={() => setSt1(false)}
-        onMouseDown={() => setSt1(true)}
-        onMouseUp={() => setSt1(false)}
       ></div>
       <div
         style={{
@@ -39,8 +37,6 @@ function App() {
         }}
         onPointerDown={() => setSt2(true)}
         onPointerUp={() => setSt2(false)}
-        onMouseDown={() => setSt2(true)}
-        onMouseUp={() => setSt2(false)}
       ></div>
       {st1 && st2 && (
         <div
