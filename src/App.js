@@ -26,6 +26,7 @@ function App() {
         }}
         onPointerDown={() => setSt1(true)}
         onPointerUp={() => setSt1(false)}
+        onPointerMove={() => setSt1(false)}
       ></div>
       <div
         style={{
@@ -38,6 +39,7 @@ function App() {
         }}
         onPointerDown={() => setSt2(true)}
         onPointerUp={() => setSt2(false)}
+        onPointerMove={() => setSt2(false)}
       ></div>
       <div
         style={{
@@ -50,6 +52,7 @@ function App() {
         }}
         onPointerDown={() => setSt3(true)}
         onPointerUp={() => setSt3(false)}
+        onPointerMove={() => setSt3(false)}
       ></div>
       {st1 && st2 && st3 && (
         <div
