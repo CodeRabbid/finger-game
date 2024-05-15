@@ -51,18 +51,20 @@ function App() {
         onPointerDown={() => setSt3(true)}
         onPointerUp={() => setSt3(false)}
       ></div>
-      {st1 && st2 && (
-        <div
-          style={{
-            left: 130,
-            top: 170,
-            height: 40,
-            width: 40,
-            backgroundColor: "blue",
-            position: "absolute",
-          }}
-        ></div>
-      )}
+      {st1 &&
+        st2 &&
+        st3(
+          <div
+            style={{
+              left: 130,
+              top: 170,
+              height: 40,
+              width: 40,
+              backgroundColor: "blue",
+              position: "absolute",
+            }}
+          ></div>
+        )}
     </div>
   );
 }
