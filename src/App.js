@@ -17,11 +17,24 @@ function App() {
     >
       <div
         style={{
-          left: 100,
-          top: 100,
+          left: 30,
+          top: 200,
           height: 40,
           width: 40,
           backgroundColor: "red",
+          position: "absolute",
+        }}
+        onTouchStart={() => showBlue(true)}
+        // onPointerUp={() => setSt1(false)}
+        // onPointerMove={() => setSt1(false)}
+      ></div>
+      <div
+        style={{
+          left: 30,
+          top: 30,
+          height: 40,
+          width: 40,
+          backgroundColor: "green",
           position: "absolute",
         }}
         onPointerDown={() => setSt1(true)}
@@ -30,7 +43,7 @@ function App() {
       ></div>
       <div
         style={{
-          left: 30,
+          left: 100,
           top: 30,
           height: 40,
           width: 40,
@@ -54,7 +67,7 @@ function App() {
         onPointerUp={() => setSt3(false)}
         onPointerMove={() => setSt3(false)}
       ></div>
-      {st1 && st2 && st3 && (
+      {showBlue && (
         <div
           style={{
             left: 130,
