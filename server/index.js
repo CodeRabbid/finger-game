@@ -17,13 +17,6 @@ const games = [
   },
 ];
 
-const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, "../client/dist")));
-
-app.get("*", (req, res) =>
-  res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"))
-);
-
 app.get("/rooms", (req, res) => {
   console.log("here");
   res.json({ games });
@@ -42,6 +35,13 @@ app.get("/game/all", (req, res) => {
   console.log("games");
   res.json({ games });
 });
+
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "../client/dist")));
+
+app.get("*", (req, res) =>
+  res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"))
+);
 
 const server = http.createServer(app);
 
