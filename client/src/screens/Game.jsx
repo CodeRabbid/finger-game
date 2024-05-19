@@ -1,21 +1,74 @@
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import io from "socket.io-client";
+const socket = io("", { autoConnect: false });
 
-function App() {
+function Game() {
   const [showBlue, setShowBlue] = useState(false);
   const [st1, setSt1] = useState(false);
   const [st2, setSt2] = useState(false);
   const [st3, setSt3] = useState(false);
+  const [pos, setPos] = useState([20, 20]);
+  const [id, setId] = useState();
+
+  const ref = useRef();
+
+  useEffect(() => {
+    // socket.emit("send_message", { pos: pos });
+  }, [pos]);
+
+  useEffect(() => {
+    socket.connect();
+    socket.on("connect", (data) => {
+      setId(socket.id);
+    });
+    socket.on("receive_message", (data) => {
+      setPos(data.pos);
+    });
+    socket.on("response", (data) => {
+      console.log(data);
+    });
+  }, []);
+
+  const joinRoom1 = () => {
+    socket.emit("join_room", "room1");
+  };
 
   return (
     <div
       className="App"
       style={{
-        height: 300,
-        width: 300,
+        height: "100%",
+        width: "100%",
         backgroundColor: "yellow",
       }}
+      ref={ref}
+      // onTouchStart={(e) => {
+      //   const touch = e.touches[0];
+      //   setPos([
+      //     (touch.pageX / ref.current.offsetWidth) * 100,
+      //     (touch.pageY / ref.current.offsetHeight) * 100,
+      //   ]);
+      // }}
     >
+      <button onClick={joinRoom1}>Join Room 1</button>
+      <div>My id is {id}</div>
       <div
+        style={{
+          left: `calc(${pos[0]}% - 25px)`,
+          top: `calc(${pos[1]}% - 25px)`,
+          // left: 100,
+          // top: 100,
+          backgroundColor: "blue",
+          height: 50,
+          width: 50,
+          position: "absolute",
+        }}
+        onTouchStart={() => setShowBlue(true)}
+        onTouchEnd={() => setShowBlue(false)}
+        onTouchCancel={() => setShowBlue(false)}
+        onTouchMove={() => setShowBlue(false)}
+      ></div>
+      {/* <div
         style={{
           left: 30,
           top: 200,
@@ -27,7 +80,7 @@ function App() {
         onTouchStart={() => showBlue(true)}
         // onPointerUp={() => setSt1(false)}
         // onPointerMove={() => setSt1(false)}
-      ></div>
+      ></div> */}
       <div
         style={{
           left: 30,
@@ -43,7 +96,7 @@ function App() {
       ></div>
       <div
         style={{
-          left: 100,
+          left: 70,
           top: 30,
           height: 40,
           width: 40,
@@ -83,4 +136,4 @@ function App() {
   );
 }
 
-export default App;
+export default Game;
