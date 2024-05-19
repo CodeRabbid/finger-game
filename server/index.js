@@ -47,7 +47,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://finger-game.onrender.com/",
+    origin: "https://finger-game.onrender.com",
     methods: ["GET", "POST"],
   },
 });
