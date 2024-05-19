@@ -11,25 +11,10 @@ app.use(cors());
 const games = [
   {
     name: "g1",
-    player1: { name: "a", state: "waiting" },
-    turn: 20000,
-    state: "player_1_sets_up",
+    player1: { name: "a", state: "waiting", time: 0 },
+    games_played: 0,
   },
 ];
-
-app.get("api/rooms", (req, res) => {
-  console.log("here");
-  res.json({ games });
-});
-
-app.post("api/game/create", (req, res) => {
-  const gamename = req.body.gamename;
-  const username = req.body.username;
-  if (gamename != "" && username != "") {
-    games[gamename] = { player1: username, time: 20000 };
-  }
-  res.json({ message: "success" });
-});
 
 app.get("/api/game/all", (req, res) => {
   console.log("games");
@@ -71,6 +56,7 @@ io.on("connection", (socket) => {
         state: "waiting_for_challenge",
         time: 0,
       };
+      game.games_played = 0;
     }
     socket.join(gamename);
     socket.emit("joined", game);
@@ -118,12 +104,19 @@ io.on("connection", (socket) => {
       game.player2.time = delta;
     }
 
-    games[i] = game;
-    console.log("challenge_solved");
+    game.games_played += 1;
+    console.log(game.games_played);
     console.log(delta);
-    console.log(game);
-    socket.emit("new_challenge", game);
-    socket.to(gamename).emit("new_challenge", game);
+    console.log("challenge_solved");
+    games[i] = game;
+
+    if (game.games_played >= 2) {
+      socket.emit("game_over", game);
+      socket.to(gamename).emit("game_over", game);
+    } else {
+      socket.emit("new_challenge", game);
+      socket.to(gamename).emit("new_challenge", game);
+    }
   });
 
   socket.on("send_message", (data) => {

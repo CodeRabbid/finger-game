@@ -6,6 +6,7 @@ import CreateChallenge from "../components/CreateChallenge";
 import WaitingForChallenge from "../components/WaitingForChallenge";
 import WaitingForOpponent from "../components/WaitingForOpponent";
 import SolvingChallenge from "../components/SolvingChallenge";
+import GameOver from "../components/GameOver";
 const socket = io("", {
   path: "/api/socket.io",
   autoConnect: false,
@@ -18,6 +19,7 @@ const SelectRooms = () => {
   const [pos, setPos] = useState([]);
   const [finalPos, setFinalPos] = useState([]);
   const [gameProgress, setGameProgress] = useState();
+  const [gameOver, setGameOver] = useState(false);
 
   useEffect(() => {
     socket.connect();
@@ -36,6 +38,11 @@ const SelectRooms = () => {
       console.log(game);
       console.log("new_challenge");
       setGameProgress(game);
+    });
+    socket.on("game_over", (game) => {
+      console.log("game_over");
+      setGameProgress(game);
+      setGameOver(game);
     });
   }, []);
 
@@ -80,7 +87,9 @@ const SelectRooms = () => {
 
   return (
     <>
-      {currentScreen(gameProgress) == "choose_game" ? (
+      {gameOver ? (
+        <GameOver />
+      ) : currentScreen(gameProgress) == "choose_game" ? (
         <ChooseGame
           username={username}
           setUsername={setUsername}
