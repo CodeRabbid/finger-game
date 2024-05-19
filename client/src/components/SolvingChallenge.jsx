@@ -1,4 +1,12 @@
+import { useEffect, useState } from "react";
+
 const SolvingChallenge = ({ initialPos, challengeSolved }) => {
+  const [clicked, setClicked] = useState([false, false]);
+
+  useEffect(() => {
+    if (clicked[0] && clicked[1]) challengeSolved();
+  }, [clicked]);
+
   return (
     <div
       style={{
@@ -19,7 +27,20 @@ const SolvingChallenge = ({ initialPos, challengeSolved }) => {
             width: 40,
             backgroundColor: "blue",
           }}
-          onTouchStart={() => challengeSolved()}
+          onTouchStart={() =>
+            setClicked((clicked) => {
+              const clickedCopy = [...clicked];
+              clickedCopy[index] = true;
+              return clickedCopy;
+            })
+          }
+          onTouchEnd={() =>
+            setClicked((clicked) => {
+              const clickedCopy = [...clicked];
+              clickedCopy[index] = false;
+              return clickedCopy;
+            })
+          }
         ></div>
       ))}
     </div>

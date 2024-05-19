@@ -40,7 +40,7 @@ const SelectRooms = () => {
   }, []);
 
   useEffect(() => {
-    if (pos.length >= 1) {
+    if (pos.length >= 2) {
       socket.emit("challenge_created", gameProgress.name, pos);
     }
   }, [pos]);
