@@ -6,7 +6,10 @@ import CreateChallenge from "../components/CreateChallenge";
 import WaitingForChallenge from "../components/WaitingForChallenge";
 import WaitingForOpponent from "../components/WaitingForOpponent";
 import SolvingChallenge from "../components/SolvingChallenge";
-const socket = io("http://localhost:3001", { autoConnect: false });
+const socket = io("http://localhost:3001", {
+  path: "/api/socket.io",
+  autoConnect: false,
+});
 
 const SelectRooms = () => {
   const [username, setUsername] = useState(localStorage.getItem("username"));

@@ -17,12 +17,12 @@ const games = [
   },
 ];
 
-app.get("/rooms", (req, res) => {
+app.get("api/rooms", (req, res) => {
   console.log("here");
   res.json({ games });
 });
 
-app.post("/game/create", (req, res) => {
+app.post("api/game/create", (req, res) => {
   const gamename = req.body.gamename;
   const username = req.body.username;
   if (gamename != "" && username != "") {
@@ -31,7 +31,7 @@ app.post("/game/create", (req, res) => {
   res.json({ message: "success" });
 });
 
-app.get("/game/all", (req, res) => {
+app.get("/api/game/all", (req, res) => {
   console.log("games");
   res.json({ games });
 });
@@ -40,14 +40,15 @@ const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, "../client/dist")));
 
 app.get("*", (req, res) =>
-  res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"))
+  res.sendFile(path.resolve(__dirname, "..", "client", "dist", "index.html"))
 );
 
 const server = http.createServer(app);
 
 const io = new Server(server, {
+  path: "/api/socket.io",
   cors: {
-    origin: "https://finger-game.onrender.com",
+    origin: ["https://finger-game.onrender.com", "http://localhost:3000"],
     methods: ["GET", "POST"],
   },
 });

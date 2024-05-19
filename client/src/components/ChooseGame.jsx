@@ -9,7 +9,7 @@ const ChooseGame = ({
   joinGame,
 }) => {
   useEffect(() => {
-    getGames();
+    // getGames();
   }, []);
 
   const [games, setGames] = useState([]);
@@ -19,7 +19,7 @@ const ChooseGame = ({
   };
 
   const getGames = async () => {
-    const { data } = await axios("/game/all");
+    const { data } = await axios("api/game/all");
     setGames(data.games);
     console.log(data.games);
   };
@@ -48,7 +48,7 @@ const ChooseGame = ({
       <button onClick={createGame}>Create</button>
       <br />
       <div>Games: </div>
-      <button onClick={getGames}>Get games</button>
+      <button onClick={() => getGames()}>Get games</button>
       {games.map((game) => (
         <div key={game.name}>
           <span>
