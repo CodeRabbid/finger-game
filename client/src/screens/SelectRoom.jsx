@@ -6,7 +6,7 @@ import CreateChallenge from "../components/CreateChallenge";
 import WaitingForChallenge from "../components/WaitingForChallenge";
 import WaitingForOpponent from "../components/WaitingForOpponent";
 import SolvingChallenge from "../components/SolvingChallenge";
-const socket = io("http://localhost:3001", {
+const socket = io("", {
   path: "/api/socket.io",
   autoConnect: false,
 });
