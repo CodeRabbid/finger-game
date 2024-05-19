@@ -12,7 +12,7 @@ const games = [
   {
     name: "g1",
     player1: { name: "a", state: "waiting" },
-    turn: 0,
+    turn: 20000,
     state: "player_1_sets_up",
   },
 ];
@@ -26,7 +26,7 @@ app.post("api/game/create", (req, res) => {
   const gamename = req.body.gamename;
   const username = req.body.username;
   if (gamename != "" && username != "") {
-    games[gamename] = { player1: username };
+    games[gamename] = { player1: username, time: 20000 };
   }
   res.json({ message: "success" });
 });
@@ -61,8 +61,16 @@ io.on("connection", (socket) => {
   socket.on("join_game", (gamename, username) => {
     const game = games.find((g) => g.name == gamename);
     if (game.player1.name != username) {
-      game.player1 = { ...game.player1, state: "creating_challenge" };
-      game.player2 = { name: username, state: "waiting_for_challenge" };
+      game.player1 = {
+        ...game.player1,
+        state: "creating_challenge",
+        time: 0,
+      };
+      game.player2 = {
+        name: username,
+        state: "waiting_for_challenge",
+        time: 0,
+      };
     }
     socket.join(gamename);
     socket.emit("joined", game);
@@ -96,15 +104,24 @@ io.on("connection", (socket) => {
     socket.to(gamename).emit("game_continues", game, pos);
   });
 
-  socket.on("challenge_solved", (gamename) => {
+  socket.on("challenge_solved", (gamename, username, delta) => {
     var i = games.findIndex((game) => game.name == gamename);
     const game = games[i];
 
     game.player1.state = nextState(game.player1.state);
     game.player2.state = nextState(game.player2.state);
 
+    if (game.player1.name == username) {
+      game.player1.time = delta;
+    }
+    if (game.player2.name == username) {
+      game.player2.time = delta;
+    }
+
     games[i] = game;
-    console.log("new_challenge");
+    console.log("challenge_solved");
+    console.log(delta);
+    console.log(game);
     socket.emit("new_challenge", game);
     socket.to(gamename).emit("new_challenge", game);
   });

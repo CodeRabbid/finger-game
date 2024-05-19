@@ -1,10 +1,25 @@
 import { useEffect, useState } from "react";
 
-const SolvingChallenge = ({ initialPos, challengeSolved }) => {
-  const [clicked, setClicked] = useState([false, false]);
+const SolvingChallenge = ({ initialPos, challengeSolved, initialTime }) => {
+  const beginning = new Date();
+  const [clicked, setClicked] = useState([false]);
+  const [time, setTime] = useState(
+    new Date(Math.abs(new Date() - beginning + initialTime))
+  );
 
   useEffect(() => {
-    if (clicked[0] && clicked[1]) challengeSolved();
+    const interval = setInterval(() => {
+      setTime(new Date(Math.abs(new Date() - beginning + initialTime)));
+    }, 10);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (clicked[0]) {
+      console.log(Math.abs(time));
+      challengeSolved(Math.abs(time));
+    }
   }, [clicked]);
 
   return (
@@ -16,6 +31,49 @@ const SolvingChallenge = ({ initialPos, challengeSolved }) => {
         backgroundColor: "yellow",
       }}
     >
+      <div
+        style={{
+          display: "table",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          height: "100%",
+          width: "100%",
+        }}
+      >
+        <div
+          style={{
+            display: "table-cell",
+            verticalAlign: "middle",
+          }}
+        >
+          <div
+            style={{
+              marginLeft: "auto",
+              marginRight: "auto",
+              display: "table",
+              position: "relative",
+              fontSize: "40px",
+            }}
+          >
+            {String(time.getMinutes()).padStart(2, "0")}:
+            {String(time.getSeconds()).padStart(2, "0")}:
+            {String(Math.floor(time.getMilliseconds() / 10)).padStart(2, "0")}
+          </div>
+        </div>
+      </div>
+      {/* <div
+        style={{
+          display: "table",
+          position: "relative",
+          fontSize: "40px",
+          margin: "0 30 0 30",
+        }}
+      >
+        {String(time.getMinutes()).padStart(2, "0")}:
+        {String(time.getSeconds()).padStart(2, "0")}:
+        {String(Math.floor(time.getMilliseconds() / 10)).padStart(2, "0")}
+      </div> */}
       {initialPos.map((p, index) => (
         <div
           key={index}

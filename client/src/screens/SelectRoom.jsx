@@ -40,7 +40,7 @@ const SelectRooms = () => {
   }, []);
 
   useEffect(() => {
-    if (pos.length >= 2) {
+    if (pos.length >= 1) {
       socket.emit("challenge_created", gameProgress.name, pos);
     }
   }, [pos]);
@@ -65,8 +65,17 @@ const SelectRooms = () => {
     }
   };
 
-  const challengeSolved = () => {
-    socket.emit("challenge_solved", gameProgress.name);
+  const getInitialTime = (gameProgress) => {
+    if (gameProgress.player1.name == username) {
+      return gameProgress.player1.time;
+    } else if (gameProgress.player2.name == username) {
+      console.log(gameProgress.player2.time);
+      return gameProgress.player2.time;
+    }
+  };
+
+  const challengeSolved = (delta) => {
+    socket.emit("challenge_solved", gameProgress.name, username, delta);
   };
 
   return (
@@ -91,6 +100,7 @@ const SelectRooms = () => {
         <SolvingChallenge
           initialPos={finalPos}
           challengeSolved={challengeSolved}
+          initialTime={getInitialTime(gameProgress)}
         />
       ) : (
         ""
