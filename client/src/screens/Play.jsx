@@ -1,5 +1,5 @@
 import io from "socket.io-client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useSearchParams, Navigate } from "react-router-dom";
 import WaitingToJoin from "../components/WaitingToJoin";
 import CreateChallenge from "../components/CreateChallenge";
@@ -7,17 +7,19 @@ import WaitingForChallenge from "../components/WaitingForChallenge";
 import WaitingForOpponent from "../components/WaitingForOpponent";
 import SolvingChallenge from "../components/SolvingChallenge";
 import GameOver from "../components/GameOver";
-const socket = io("", {
-  path: "/api/socket.io",
-  autoConnect: false,
-});
+import { SocketContext } from "../context/SocketContext.jsx";
+// const socket = io("", {
+//   path: "/api/socket.io",
+//   autoConnect: false,
+// });
 
 const Play = () => {
+  const socket = useContext(SocketContext);
+
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [username, setUsername] = useState(localStorage.getItem("username"));
 
-  const [gamename, setGamename] = useState("");
   const [pos, setPos] = useState([]);
   const [finalPos, setFinalPos] = useState([]);
   const [gameProgress, setGameProgress] = useState();
@@ -25,7 +27,7 @@ const Play = () => {
 
   useEffect(() => {
     const gamename = searchParams.get("gamename");
-    socket.connect();
+
     socket.emit("join_game", gamename, username);
     socket.on("joined", (game) => {
       setGameProgress(game);

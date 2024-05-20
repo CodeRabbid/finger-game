@@ -10,6 +10,7 @@ import App from "./App.jsx";
 import Play from "./screens/Play.jsx";
 import SelectGame from "./screens/SelectGame.jsx";
 import "./index.css";
+import { SocketProvider } from "./context/SocketContext.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,5 +22,7 @@ const router = createBrowserRouter(
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
+  <SocketProvider>
+    <RouterProvider router={router} />{" "}
+  </SocketProvider>
 );

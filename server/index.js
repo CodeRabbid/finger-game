@@ -117,6 +117,16 @@ io.on("connection", (socket) => {
     socket.to(gamename).emit("game_continues", game, pos);
   });
 
+  socket.on("login", (username) => {
+    socket.join(username);
+    console.log(username + " joined it's room");
+  });
+
+  socket.on("challenge", (username, challenger_username) => {
+    console.log(challenger_username);
+    socket.to(username).emit("challenge_received", challenger_username);
+  });
+
   socket.on("challenge_solved", (gamename, username, delta) => {
     var i = games.findIndex((game) => game.name == gamename);
     const game = games[i];
