@@ -44,6 +44,8 @@ io.on("connection", (socket) => {
   console.log(`User Connected: ${socket.id}`);
 
   socket.on("join_game", (gamename, username) => {
+    console.log(gamename);
+    console.log(username);
     const game = games.find((g) => g.name == gamename);
     if (game.player1.name != username) {
       game.player1 = {

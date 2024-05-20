@@ -19,6 +19,7 @@ const SolvingChallenge = ({ initialPos, challengeSolved, initialTime }) => {
     if (clicked[0]) {
       console.log(Math.abs(time));
       challengeSolved(Math.abs(time));
+      setClicked([false]);
     }
   }, [clicked]);
 

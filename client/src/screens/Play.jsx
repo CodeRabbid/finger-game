@@ -1,7 +1,7 @@
 import io from "socket.io-client";
 import { useEffect, useState } from "react";
+import { useSearchParams, Navigate } from "react-router-dom";
 import WaitingToJoin from "../components/WaitingToJoin";
-import ChooseGame from "../components/ChooseGame";
 import CreateChallenge from "../components/CreateChallenge";
 import WaitingForChallenge from "../components/WaitingForChallenge";
 import WaitingForOpponent from "../components/WaitingForOpponent";
@@ -12,7 +12,9 @@ const socket = io("", {
   autoConnect: false,
 });
 
-const SelectRooms = () => {
+const Play = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [username, setUsername] = useState(localStorage.getItem("username"));
 
   const [gamename, setGamename] = useState("");
@@ -22,7 +24,9 @@ const SelectRooms = () => {
   const [gameOver, setGameOver] = useState(false);
 
   useEffect(() => {
+    const gamename = searchParams.get("gamename");
     socket.connect();
+    socket.emit("join_game", gamename, username);
     socket.on("joined", (game) => {
       setGameProgress(game);
     });
@@ -88,15 +92,7 @@ const SelectRooms = () => {
   return (
     <>
       {gameOver ? (
-        <GameOver />
-      ) : currentScreen(gameProgress) == "choose_game" ? (
-        <ChooseGame
-          username={username}
-          setUsername={setUsername}
-          gamename={gamename}
-          setGamename={setGamename}
-          joinGame={joinGame}
-        />
+        <GameOver gameProgress={gameProgress} />
       ) : currentScreen(gameProgress) == "waiting_to_join" ? (
         <WaitingToJoin />
       ) : currentScreen(gameProgress) == "creating_challenge" ? (
@@ -118,4 +114,4 @@ const SelectRooms = () => {
   );
 };
 
-export default SelectRooms;
+export default Play;
