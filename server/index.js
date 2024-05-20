@@ -10,15 +10,40 @@ app.use(cors());
 
 const games = [
   {
-    name: "g1",
+    name: "a",
     player1: { name: "a", state: "waiting", time: 0 },
+    games_played: 0,
+  },
+  {
+    name: "b",
+    player1: { name: "b", state: "waiting", time: 0 },
+    games_played: 0,
+  },
+  {
+    name: "c",
+    player1: { name: "c", state: "waiting", time: 0 },
     games_played: 0,
   },
 ];
 
-app.get("/api/game/all", (req, res) => {
-  console.log("games");
-  res.json({ games });
+app.post("/api/game/all", (req, res) => {
+  const gamesWithoutUser = games.filter(
+    (game) => game.name != req.body.username
+  );
+  res.json({ games: gamesWithoutUser });
+});
+
+app.post("/api/login", (req, res) => {
+  const i = games.findIndex((g) => g.name == req.body.username);
+  if (i == -1) {
+    games.push({
+      name: req.body.username,
+      player1: { name: req.body.username, state: "waiting", time: 0 },
+      games_played: 0,
+    });
+  }
+
+  res.json({ username: req.body.username });
 });
 
 const __dirname = path.resolve();

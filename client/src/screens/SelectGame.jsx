@@ -2,14 +2,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const SelectRoom = ({
-  username,
-  setUsername,
-  gamename,
-  setGamename,
-  joinGame,
-}) => {
+const SelectRoom = ({ gamename, setGamename }) => {
   const navigate = useNavigate();
+  const [username, setUsername] = useState(localStorage.getItem("username"));
+
   useEffect(() => {
     getGames();
   }, []);
@@ -17,11 +13,13 @@ const SelectRoom = ({
   const [games, setGames] = useState([]);
 
   const login = async () => {
-    localStorage.setItem("username", username);
+    const { data } = await axios.post("/api/login", { username });
+
+    localStorage.setItem("username", data.username);
   };
 
   const getGames = async () => {
-    const { data } = await axios("/api/game/all");
+    const { data } = await axios.post("/api/game/all", { username });
     setGames(data.games);
     console.log(data.games);
   };
