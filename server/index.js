@@ -96,28 +96,30 @@ io.on("connection", (socket) => {
     var i = games.findIndex((game) => game.name == gamename);
     const game = games[i];
 
-    game.player1.state = nextState(game.player1.state);
-    game.player2.state = nextState(game.player2.state);
+    if (i != -1) {
+      game.player1.state = nextState(game.player1.state);
+      game.player2.state = nextState(game.player2.state);
 
-    if (game.player1.name == username) {
-      game.player1.time = delta;
-    }
-    if (game.player2.name == username) {
-      game.player2.time = delta;
-    }
+      if (game.player1.name == username) {
+        game.player1.time = delta;
+      }
+      if (game.player2.name == username) {
+        game.player2.time = delta;
+      }
 
-    game.games_played += 1;
-    console.log(game.games_played);
-    console.log(delta);
-    console.log("challenge_solved");
-    games[i] = game;
+      game.games_played += 1;
+      console.log(game.games_played);
+      console.log(delta);
+      console.log("challenge_solved");
+      games[i] = game;
 
-    if (game.games_played >= 2) {
-      socket.emit("game_over", game);
-      socket.to(gamename).emit("game_over", game);
-    } else {
-      socket.emit("new_challenge", game);
-      socket.to(gamename).emit("new_challenge", game);
+      if (game.games_played >= 2) {
+        socket.emit("game_over", game);
+        socket.to(gamename).emit("game_over", game);
+      } else {
+        socket.emit("new_challenge", game);
+        socket.to(gamename).emit("new_challenge", game);
+      }
     }
   });
 
