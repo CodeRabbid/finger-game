@@ -75,7 +75,7 @@ const GameOver = ({ gameProgress }) => {
               position: "relative",
               fontSize: "40px",
             }}
-            onClick={() => navigate("/game/select")}
+            onClick={() => navigate("/")}
           >
             New Game
           </button>

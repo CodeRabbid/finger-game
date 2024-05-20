@@ -56,7 +56,9 @@ const SelectRoom = ({
           <span>
             {game.name} p1: {game.player1.name} p2: {game.player2?.name}
           </span>
-          <button onClick={() => navigate(`/?gamename=${game.name}`)}>
+          <button
+            onClick={() => navigate(`/game/select?gamename=${game.name}`)}
+          >
             join game
           </button>
         </div>
