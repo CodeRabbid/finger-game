@@ -1,8 +1,13 @@
+import "dotenv/config";
 import express from "express";
 import path from "path";
 import http from "http";
 import { Server } from "socket.io";
 import cors from "cors";
+import connectDB from "./config/db.js";
+import { authUser, registerUser } from "./controllers/userControllers.js";
+
+connectDB();
 
 const app = express();
 app.use(express.json());
@@ -25,6 +30,9 @@ const games = [
     games_played: 0,
   },
 ];
+
+app.post("/api/register", registerUser);
+app.post("/api/login", authUser);
 
 app.post("/api/game/all", (req, res) => {
   const gamesWithoutUser = games.filter(
@@ -103,6 +111,10 @@ io.on("connection", (socket) => {
       return state;
     }
   };
+
+  socket.on("accepted", (username) => {
+    socket.to(username).emit("accepted");
+  });
 
   socket.on("challenge_created", (gamename, pos) => {
     var i = games.findIndex((g) => g.name == gamename);
