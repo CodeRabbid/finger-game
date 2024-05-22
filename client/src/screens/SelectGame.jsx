@@ -47,16 +47,59 @@ const SelectRoom = ({ gamename, setGamename }) => {
   };
   return (
     <div>
-      {games.map((game) => (
-        <div key={game.name}>
-          <span>
-            {game.name} p1: {game.player1.name} p2: {game.player2?.name}
-          </span>
-          <button onClick={() => challenge(game.name, username)}>
-            challenge
-          </button>
+      <div
+        style={{
+          display: "table",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          height: "100%",
+          width: "100%",
+          backgroundColor: "#fdff82",
+        }}
+      >
+        <div
+          style={{
+            display: "table-cell",
+            verticalAlign: "middle",
+          }}
+        >
+          <div
+            style={{
+              fontFamily: "Arial, sans-serif",
+              fontWeight: "bold",
+              color: "orange",
+              marginLeft: "auto",
+              marginRight: "auto",
+              display: "table",
+              position: "relative",
+              fontSize: "30px",
+            }}
+          >
+            Choose an opponent:
+          </div>
+          <br />
+          {games.map((game) => (
+            <div
+              key={game.name}
+              style={{
+                fontFamily: "Arial, sans-serif",
+                fontWeight: "bold",
+                color: "orange",
+                marginLeft: "auto",
+                marginRight: "auto",
+                display: "table",
+                position: "relative",
+                fontSize: "30px",
+              }}
+              onClick={() => challenge(game.name, username)}
+            >
+              {game.name}
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
+
       {challengePopUp ? (
         <div
           style={{

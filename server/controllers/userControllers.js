@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
+import Game from "../models/gameModel.js";
 import jwt from "jsonwebtoken";
 
 // @desc    Register a new user
@@ -19,10 +20,16 @@ const registerUser = asyncHandler(async (req, res) => {
     password,
   });
 
-  if (user) {
+  const game = await Game.create({
+    name: username,
+    player1: { name: username, state: "waiting", time: 0 },
+  });
+
+  if (user && game) {
     const payload = { _id: user._id };
     const access_token = jwt.sign(payload, process.env.JWT_SECRET);
     await user.save();
+    await game.save();
     res.json({
       access_token,
       username,

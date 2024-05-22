@@ -32,9 +32,7 @@ const Play = () => {
     socket.on("joined", (game) => {
       setGameProgress(game);
     });
-    socket.on("game_continues", (game, pos) => {
-      console.log(game);
-      console.log(pos);
+    socket.on("game_continues", (game, pos, id) => {
       console.log("game_continues");
       setGameProgress(game);
       setFinalPos(pos);
@@ -55,6 +53,8 @@ const Play = () => {
   useEffect(() => {
     if (pos.length >= 1) {
       socket.emit("challenge_created", gameProgress.name, pos);
+
+      //
     }
   }, [pos]);
 
