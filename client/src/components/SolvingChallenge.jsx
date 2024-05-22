@@ -49,7 +49,7 @@ const SolvingChallenge = ({ initialPos, challengeSolved, initialTime }) => {
         >
           <div
             className="centered-content"
-            style={{ fontSize: 40, color: "#ffc445" }}
+            style={{ fontSize: 50, color: "#ffc445" }}
           >
             {String(time.getMinutes()).padStart(2, "0")}:
             {String(time.getSeconds()).padStart(2, "0")}:
@@ -62,11 +62,12 @@ const SolvingChallenge = ({ initialPos, challengeSolved, initialTime }) => {
           key={index}
           style={{
             position: "absolute",
-            left: `calc(${p[0]}% - 20px)`,
-            top: `calc(${p[1]}% - 20px)`,
-            height: 40,
-            width: 40,
-            backgroundColor: "blue",
+            left: `calc(${p[0]}% - 30px)`,
+            top: `calc(${p[1]}% - 30px)`,
+            height: 60,
+            width: 60,
+            backgroundColor: "#ff4545",
+            borderRadius: "50%",
           }}
           onTouchStart={() =>
             setClicked((clicked) => {
