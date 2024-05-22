@@ -6,9 +6,8 @@ const CreateChallenge = ({ pos, setPos }) => {
     <div
       style={{
         position: "relative",
-        height: 300,
+        height: "100%",
         width: "100%",
-        backgroundColor: "yellow",
       }}
       ref={ref}
       onTouchStart={(e) => {

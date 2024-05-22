@@ -27,9 +27,8 @@ const SolvingChallenge = ({ initialPos, challengeSolved, initialTime }) => {
     <div
       style={{
         position: "relative",
-        height: 300,
+        height: "100%",
         width: "100%",
-        backgroundColor: "yellow",
       }}
     >
       <div
@@ -49,13 +48,8 @@ const SolvingChallenge = ({ initialPos, challengeSolved, initialTime }) => {
           }}
         >
           <div
-            style={{
-              marginLeft: "auto",
-              marginRight: "auto",
-              display: "table",
-              position: "relative",
-              fontSize: "40px",
-            }}
+            className="centered-content"
+            style={{ fontSize: 40, color: "#ffc445" }}
           >
             {String(time.getMinutes()).padStart(2, "0")}:
             {String(time.getSeconds()).padStart(2, "0")}:
@@ -63,18 +57,6 @@ const SolvingChallenge = ({ initialPos, challengeSolved, initialTime }) => {
           </div>
         </div>
       </div>
-      {/* <div
-        style={{
-          display: "table",
-          position: "relative",
-          fontSize: "40px",
-          margin: "0 30 0 30",
-        }}
-      >
-        {String(time.getMinutes()).padStart(2, "0")}:
-        {String(time.getSeconds()).padStart(2, "0")}:
-        {String(Math.floor(time.getMilliseconds() / 10)).padStart(2, "0")}
-      </div> */}
       {initialPos.map((p, index) => (
         <div
           key={index}

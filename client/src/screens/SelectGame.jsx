@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { SocketContext } from "../context/SocketContext.jsx";
+import { Button } from "@mui/material";
 
 const SelectRoom = ({ gamename, setGamename }) => {
   const socket = useContext(SocketContext);
@@ -55,7 +56,6 @@ const SelectRoom = ({ gamename, setGamename }) => {
           left: 0,
           height: "100%",
           width: "100%",
-          backgroundColor: "#fdff82",
         }}
       >
         <div
@@ -67,7 +67,6 @@ const SelectRoom = ({ gamename, setGamename }) => {
           <div
             style={{
               fontFamily: "Arial, sans-serif",
-              fontWeight: "bold",
               color: "orange",
               marginLeft: "auto",
               marginRight: "auto",
@@ -132,45 +131,53 @@ const SelectRoom = ({ gamename, setGamename }) => {
                   maxWidth: "200px",
                   minWidth: "200px",
                   minHeight: "100px",
-                  backgroundColor: "white",
+                  backgroundColor: "#fcfaae",
                   textAlign: "center",
-                  borderColor: "blue",
+                  borderColor: "orange",
                   borderStyle: "solid",
-                  borderWidth: "5px",
-                  borderShadow: "5px",
+                  borderWidth: "3px",
                   fontSize: "20px",
+                  padding: "10px 10px 10px 10px",
                 }}
               >
-                <p>Challenge from {challengerName}</p>
+                <p style={{ fontFamily: "Arial, sans-serif", color: "orange" }}>
+                  Challenge from {challengerName}
+                </p>
                 <div
                   style={{
                     display: "inline-block",
                   }}
                 >
-                  <div
+                  <Button
                     style={{
                       display: "inline-block",
                       margin: "0px 7px 7px 10px",
                       padding: "7px 7px 7px 7px",
+                      color: "orange",
                       borderStyle: "solid",
+                      borderColor: "orange",
                       borderWidth: "2px",
                     }}
                     onClick={() => setChallengePopUp(false)}
                   >
                     decline
-                  </div>
-                  <div
+                  </Button>
+                  <Button
+                    variant="contained"
                     style={{
                       display: "inline-block",
                       margin: "0px 7px 7px 10px",
                       padding: "7px 7px 7px 7px",
+                      backgroundColor: "orange",
+                      color: "white",
                       borderStyle: "solid",
+                      borderColor: "orange",
                       borderWidth: "2px",
                     }}
                     onClick={() => handleAccept()}
                   >
                     accept
-                  </div>
+                  </Button>
                 </div>
               </div>
             </div>

@@ -13,9 +13,34 @@ a:hover {
 }
 
 body {
+  background-color: #fdff82;
   margin: 0;
   display: flex;
   place-items: center;
   min-width: 100%;
   min-height: 100vh;
+}
+
+.center-container-1 {
+  display: table;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.center-container-2 {
+  display: table-cell;
+  vertical-align: middle;
+}
+.centered-content {
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  color: orange;
+  margin-left: auto;
+  margin-right: auto;
+  display: table;
+  position: relative;
+  font-size: 30px;
 }
