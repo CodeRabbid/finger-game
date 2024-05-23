@@ -6,6 +6,7 @@ const SolvingChallenge = ({
   challengeSolved,
   initialTime,
   numDots,
+  dotSize,
 }) => {
   const beginning = new Date();
   const cl = [];
@@ -20,6 +21,7 @@ const SolvingChallenge = ({
   );
 
   useEffect(() => {
+    console.log(initialPos);
     const interval = setInterval(() => {
       setTime(new Date(Math.abs(new Date() - beginning + initialTime)));
     }, 10);
@@ -79,6 +81,7 @@ const SolvingChallenge = ({
         <Dot
           pos={p}
           key={index}
+          dotSize={dotSize}
           onTouchStart={() => {
             setClicked((clicked) => {
               const clickedCopy = [...clicked];

@@ -110,12 +110,12 @@ io.on("connection", (socket) => {
     console.log(username + " joined it's room");
   });
 
-  socket.on("challenge", (username, challenger_username, numDots) => {
+  socket.on("challenge", (username, challenger_username, numDots, dotSize) => {
     console.log(challenger_username);
     console.log(numDots);
     socket
       .to(username)
-      .emit("challenge_received", challenger_username, numDots);
+      .emit("challenge_received", challenger_username, numDots, dotSize);
   });
 
   socket.on("challenge_solved", async (gamename, username, delta) => {

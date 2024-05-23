@@ -1,12 +1,12 @@
-const Dot = ({ pos, onTouchStart, onTouchEnd }) => {
+const Dot = ({ pos, dotSize, onTouchStart, onTouchEnd }) => {
   return (
     <div
       style={{
         position: "absolute",
-        left: `calc(${pos[0]}% - 30px)`,
-        top: `calc(${pos[1]}% - 30px)`,
-        height: 60,
-        width: 60,
+        left: `calc(${pos[0]}% - ${dotSize / 2}px)`,
+        top: `calc(${pos[1]}% - ${dotSize / 2}px)`,
+        height: dotSize,
+        width: dotSize,
         backgroundColor: "var(--dot-color)",
         borderRadius: "50%",
       }}

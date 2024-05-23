@@ -20,7 +20,7 @@ const SelectRoom = () => {
   const [challengerName, setChallengerName] = useState("");
   const [challengeReceiverName, setChallengeReceiverName] = useState("");
   const [numDots, setNumDots] = useState(1);
-  const [dotSize, setDotSize] = useState(30);
+  const [dotSize, setDotSize] = useState(60);
 
   const [gameProgress, setGameProgress] = useState();
   const [gameOver, setGameOver] = useState(false);
@@ -33,16 +33,15 @@ const SelectRoom = () => {
     socket.on("connect", () => {
       socket.emit("login", username);
     });
-    socket.on("challenge_received", (challenger, numDots) => {
+    socket.on("challenge_received", (challenger, numDots, dotSize) => {
+      setDotSize(dotSize);
       setNumDots(numDots);
       setChallengerName(challenger);
       setChallengeReceivedPopUp(true);
     });
 
     socket.on("joined", (game) => {
-      console.log("num_dots: " + game.num_dots);
       setGameProgress(game);
-      console.log("game:" + game);
     });
 
     socket.on("game_continues", (game, pos, id) => {
@@ -161,6 +160,22 @@ const SelectRoom = () => {
                   }}
                 />
               </div>
+              <div
+                className="centered-content"
+                style={{ fontWeight: "normal", fontSize: 25 }}
+              >
+                <Slider
+                  style={{ width: 150, color: "orange" }}
+                  min={20}
+                  max={100}
+                  aria-label="dotSize"
+                  value={dotSize}
+                  valueLabelDisplay="auto"
+                  onChange={(e) => {
+                    setDotSize(e.target.value);
+                  }}
+                />
+              </div>
               <br />
               <div
                 className="centered-content"
@@ -215,7 +230,7 @@ const SelectRoom = () => {
       ) : currentScreen(gameProgress) == "waiting_to_join" ? (
         <WaitingToJoin />
       ) : currentScreen(gameProgress) == "creating_challenge" ? (
-        <CreateChallenge pos={dots} setPos={setDots} />
+        <CreateChallenge pos={dots} setPos={setDots} dotSize={dotSize} />
       ) : currentScreen(gameProgress) == "waiting_for_challenge" ? (
         <WaitingForChallenge />
       ) : currentScreen(gameProgress) == "waiting_for_opponent" ? (
@@ -226,6 +241,7 @@ const SelectRoom = () => {
           challengeSolved={challengeSolved}
           initialTime={getInitialTime(gameProgress)}
           numDots={numDots}
+          dotSize={dotSize}
         />
       ) : (
         ""

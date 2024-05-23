@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import Dot from "./Dot";
 
-const CreateChallenge = ({ pos, setPos }) => {
+const CreateChallenge = ({ pos, setPos, dotSize }) => {
   const ref = useRef();
 
   const handleDoTPlacement = (e) => {
@@ -15,7 +15,7 @@ const CreateChallenge = ({ pos, setPos }) => {
       const a = newPixelPosX - pPixelPosX;
       const b = newPixelPosY - pPixelPosY;
       const c = Math.sqrt(a * a + b * b);
-      if (c <= 60) legit = false;
+      if (c <= dotSize) legit = false;
       console.log(c);
       console.log(legit);
     }
@@ -42,7 +42,7 @@ const CreateChallenge = ({ pos, setPos }) => {
       onTouchStart={handleDoTPlacement}
     >
       {pos.map((p, index) => (
-        <Dot pos={p} key={index} />
+        <Dot pos={p} key={index} dotSize={dotSize} />
       ))}
     </div>
   );
