@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { SocketContext } from "../context/SocketContext.jsx";
-import { Button } from "@mui/material";
+import PopUp from "../components/PopUp.jsx";
 
 const SelectRoom = ({ gamename, setGamename }) => {
   const socket = useContext(SocketContext);
@@ -48,32 +48,11 @@ const SelectRoom = ({ gamename, setGamename }) => {
   };
   return (
     <div>
-      <div
-        style={{
-          display: "table",
-          position: "absolute",
-          top: 0,
-          left: 0,
-          height: "100%",
-          width: "100%",
-        }}
-      >
-        <div
-          style={{
-            display: "table-cell",
-            verticalAlign: "middle",
-          }}
-        >
+      <div className="center-container-1">
+        <div className="center-container-2">
           <div
-            style={{
-              fontFamily: "Arial, sans-serif",
-              color: "orange",
-              marginLeft: "auto",
-              marginRight: "auto",
-              display: "table",
-              position: "relative",
-              fontSize: "30px",
-            }}
+            className="centered-content"
+            style={{ fontWeight: "normal", fontSize: 25 }}
           >
             Choose an opponent:
           </div>
@@ -100,89 +79,11 @@ const SelectRoom = ({ gamename, setGamename }) => {
       </div>
 
       {challengePopUp ? (
-        <div
-          style={{
-            display: "table",
-            position: "absolute",
-            top: 0,
-            left: 0,
-            height: "100%",
-            width: "100%",
-            backgroundColor: "",
-          }}
-        >
-          <div
-            style={{
-              display: "table-cell",
-              verticalAlign: "middle",
-            }}
-          >
-            <div
-              style={{
-                marginLeft: "auto",
-                marginRight: "auto",
-                display: "table",
-                position: "relative",
-              }}
-            >
-              <div
-                style={{
-                  display: "inline-block",
-                  maxWidth: "200px",
-                  minWidth: "200px",
-                  minHeight: "100px",
-                  backgroundColor: "#fcfaae",
-                  textAlign: "center",
-                  borderColor: "orange",
-                  borderStyle: "solid",
-                  borderWidth: "3px",
-                  fontSize: "20px",
-                  padding: "10px 10px 10px 10px",
-                }}
-              >
-                <p style={{ fontFamily: "Arial, sans-serif", color: "orange" }}>
-                  Challenge from {challengerName}
-                </p>
-                <div
-                  style={{
-                    display: "inline-block",
-                  }}
-                >
-                  <Button
-                    style={{
-                      display: "inline-block",
-                      margin: "0px 7px 7px 10px",
-                      padding: "7px 7px 7px 7px",
-                      color: "orange",
-                      borderStyle: "solid",
-                      borderColor: "orange",
-                      borderWidth: "2px",
-                    }}
-                    onClick={() => setChallengePopUp(false)}
-                  >
-                    decline
-                  </Button>
-                  <Button
-                    variant="contained"
-                    style={{
-                      display: "inline-block",
-                      margin: "0px 7px 7px 10px",
-                      padding: "7px 7px 7px 7px",
-                      backgroundColor: "orange",
-                      color: "white",
-                      borderStyle: "solid",
-                      borderColor: "orange",
-                      borderWidth: "2px",
-                    }}
-                    onClick={() => handleAccept()}
-                  >
-                    accept
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <PopUp
+          onDecline={() => setChallengePopUp(false)}
+          onAccept={() => handleAccept()}
+          text={`Challenge from ${challengerName}`}
+        />
       ) : (
         ""
       )}
