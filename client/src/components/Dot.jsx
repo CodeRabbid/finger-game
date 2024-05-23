@@ -1,4 +1,4 @@
-const Dot = ({ pos }) => {
+const Dot = ({ pos, onTouchStart, onTouchEnd }) => {
   return (
     <div
       style={{
@@ -10,6 +10,8 @@ const Dot = ({ pos }) => {
         backgroundColor: "var(--dot-color)",
         borderRadius: "50%",
       }}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
     ></div>
   );
 };
