@@ -1,9 +1,6 @@
-import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 
-const GameOver = ({ gameProgress }) => {
-  const navigate = useNavigate();
-
+const GameOver = ({ gameProgress, newGame }) => {
   const time1 = new Date(gameProgress.player1.time);
   const time2 = new Date(gameProgress.player2.time);
   let winner = gameProgress.player1.name;
@@ -45,7 +42,7 @@ const GameOver = ({ gameProgress }) => {
                 borderWidth: "2px",
                 fontSize: 20,
               }}
-              onClick={() => navigate("/")}
+              onClick={() => newGame()}
             >
               New Game
             </Button>
