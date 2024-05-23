@@ -224,6 +224,7 @@ const SelectRoom = () => {
           initialPos={finalPos}
           challengeSolved={challengeSolved}
           initialTime={getInitialTime(gameProgress)}
+          numDots={numDots}
         />
       ) : (
         ""

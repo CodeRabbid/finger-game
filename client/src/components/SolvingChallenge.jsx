@@ -1,8 +1,17 @@
 import { useEffect, useState } from "react";
 
-const SolvingChallenge = ({ initialPos, challengeSolved, initialTime }) => {
+const SolvingChallenge = ({
+  initialPos,
+  challengeSolved,
+  initialTime,
+  numDots,
+}) => {
   const beginning = new Date();
-  const [clicked, setClicked] = useState([false]);
+  const cl = [];
+  for (let i = 0; i < numDots; i++) {
+    cl.push(false);
+  }
+  const [clicked, setClicked] = useState(cl);
   const [time, setTime] = useState(
     new Date(Math.abs(new Date() - beginning + initialTime))
   );
@@ -16,7 +25,11 @@ const SolvingChallenge = ({ initialPos, challengeSolved, initialTime }) => {
   }, []);
 
   useEffect(() => {
-    if (clicked[0]) {
+    let finished = true;
+    for (let i = 0; i < numDots; i++) {
+      if (!clicked[i]) finished = false;
+    }
+    if (finished) {
       console.log(Math.abs(time));
       challengeSolved(Math.abs(time));
       setClicked([false]);
