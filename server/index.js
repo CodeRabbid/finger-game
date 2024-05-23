@@ -15,24 +15,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const games = [
-  {
-    name: "a",
-    player1: { name: "a", state: "waiting", time: 0 },
-    games_played: 0,
-  },
-  {
-    name: "b",
-    player1: { name: "b", state: "waiting", time: 0 },
-    games_played: 0,
-  },
-  {
-    name: "c",
-    player1: { name: "c", state: "waiting", time: 0 },
-    games_played: 0,
-  },
-];
-
 app.post("/api/register", registerUser);
 app.post("/api/login", authUser);
 
@@ -66,9 +48,10 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   console.log(`User Connected: ${socket.id}`);
 
-  socket.on("join_game", async (gamename, username) => {
+  socket.on("join_game", async (gamename, username, numDots) => {
     console.log(gamename);
     console.log(username);
+    console.log(numDots);
     // const game = games.find((g) => g.name == gamename);
     const game = await Game.findOne({ name: gamename });
     if (game.player1.name != username) {
@@ -83,7 +66,9 @@ io.on("connection", (socket) => {
         time: 0,
       };
       game.games_played = 0;
+      game.num_dots = numDots;
     }
+    game.num_dots = numDots ? numDots : 0;
     await game.save();
     socket.join(gamename);
     socket.emit("joined", game);
@@ -112,16 +97,8 @@ io.on("connection", (socket) => {
     console.log("challenge_created");
     const game = await Game.findOne({ name: gamename });
 
-    console.log("before:");
-    console.log("p1: " + game.player1.state);
-    console.log("p2: " + game.player2.state);
-
     game.player1 = { ...game.player1, state: nextState(game.player1.state) };
     game.player2 = { ...game.player2, state: nextState(game.player2.state) };
-
-    console.log("after:");
-    console.log("p1: " + game.player1.state);
-    console.log("p2: " + game.player2.state);
 
     await game.save();
     socket.emit("game_continues", game);
@@ -133,9 +110,12 @@ io.on("connection", (socket) => {
     console.log(username + " joined it's room");
   });
 
-  socket.on("challenge", (username, challenger_username) => {
+  socket.on("challenge", (username, challenger_username, numDots) => {
     console.log(challenger_username);
-    socket.to(username).emit("challenge_received", challenger_username);
+    console.log(numDots);
+    socket
+      .to(username)
+      .emit("challenge_received", challenger_username, numDots);
   });
 
   socket.on("challenge_solved", async (gamename, username, delta) => {

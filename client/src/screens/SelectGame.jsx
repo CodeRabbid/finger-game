@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { SocketContext } from "../context/SocketContext.jsx";
 import PopUp from "../components/PopUp.jsx";
+import { Slider } from "@mui/material";
 
 const SelectRoom = ({ gamename, setGamename }) => {
   const username = localStorage.getItem("username");
@@ -12,19 +13,21 @@ const SelectRoom = ({ gamename, setGamename }) => {
   const [challengeSentPopUp, setChallengeSentPopUp] = useState(false);
   const [challengerName, setChallengerName] = useState("");
   const [challengeReceiverName, setChallengeReceiverName] = useState("");
+  const [numDots, setNumDots] = useState(5);
   socket.connect();
 
   useEffect(() => {
     socket.on("connect", () => {
       socket.emit("login", username);
     });
-    socket.on("challenge_received", (challenger) => {
+    socket.on("challenge_received", (challenger, numDots) => {
+      setNumDots(numDots);
       setChallengerName(challenger);
       setChallengeReceivedPopUp(true);
     });
 
     socket.on("accepted", () => {
-      navigate(`/game/select?gamename=${username}`);
+      navigate(`/game/select?gamename=${username}&num_dots=${numDots}`);
     });
 
     getGames();
@@ -39,7 +42,7 @@ const SelectRoom = ({ gamename, setGamename }) => {
   };
 
   const challenge = (gname) => {
-    socket.emit("challenge", gname, username);
+    socket.emit("challenge", gname, username, numDots);
     setChallengeReceiverName(gname);
     setChallengeSentPopUp(true);
   };
@@ -54,6 +57,30 @@ const SelectRoom = ({ gamename, setGamename }) => {
     <div>
       <div className="center-container-1">
         <div className="center-container-2">
+          <div
+            className="centered-content"
+            style={{ fontWeight: "normal", fontSize: 25 }}
+          >
+            Number of dots:
+          </div>
+          <br />
+          <div
+            className="centered-content"
+            style={{ fontWeight: "normal", fontSize: 25 }}
+          >
+            <Slider
+              style={{ width: 150, color: "orange" }}
+              min={1}
+              max={5}
+              aria-label="numDots"
+              value={numDots}
+              valueLabelDisplay="auto"
+              onChange={(e) => {
+                setNumDots(e.target.value);
+              }}
+            />
+          </div>
+          <br />
           <div
             className="centered-content"
             style={{ fontWeight: "normal", fontSize: 25 }}

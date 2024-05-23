@@ -27,9 +27,11 @@ const Play = () => {
 
   useEffect(() => {
     const gamename = searchParams.get("gamename");
+    const numDots = searchParams.get("num_dots");
 
-    socket.emit("join_game", gamename, username);
+    socket.emit("join_game", gamename, username, numDots);
     socket.on("joined", (game) => {
+      console.log("num_dots: " + game.num_dots);
       setGameProgress(game);
     });
     socket.on("game_continues", (game, pos, id) => {

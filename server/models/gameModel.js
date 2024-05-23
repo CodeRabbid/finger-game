@@ -22,6 +22,11 @@ const gameSchema = mongoose.Schema(
       required: true,
       default: 0,
     },
+    num_dots: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
   },
   {
     timestamps: true,
