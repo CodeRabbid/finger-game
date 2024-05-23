@@ -1,6 +1,8 @@
 :root {
   --backgraound: #feffbd;
   --light-background: #feffc4;
+  --backscreen-warning: #ff4e2a;
+  --dot-color: #ff4545;
 }
 
 #root {

@@ -7,7 +7,7 @@ const Dot = ({ pos }) => {
         top: `calc(${pos[1]}% - 30px)`,
         height: 60,
         width: 60,
-        backgroundColor: "#ff4545",
+        backgroundColor: "var(--dot-color)",
         borderRadius: "50%",
       }}
     ></div>

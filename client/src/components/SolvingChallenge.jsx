@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Dot } from "./Dot.jsx";
 
 const SolvingChallenge = ({
   initialPos,
@@ -66,7 +67,7 @@ const SolvingChallenge = ({
           backgroundColor: backscreenColor,
         }}
         onTouchStart={() => {
-          setBackscreenColor("red");
+          setBackscreenColor("var(--backscreen-warning)");
           setScreenTouched(true);
         }}
         onTouchEnd={() => {
@@ -75,17 +76,9 @@ const SolvingChallenge = ({
         }}
       ></div>
       {initialPos.map((p, index) => (
-        <div
+        <Dot
+          pos={p}
           key={index}
-          style={{
-            position: "absolute",
-            left: `calc(${p[0]}% - 30px)`,
-            top: `calc(${p[1]}% - 30px)`,
-            height: 60,
-            width: 60,
-            backgroundColor: "#ff4545",
-            borderRadius: "50%",
-          }}
           onTouchStart={() => {
             setClicked((clicked) => {
               const clickedCopy = [...clicked];
@@ -100,7 +93,7 @@ const SolvingChallenge = ({
               return clickedCopy;
             })
           }
-        ></div>
+        />
       ))}
     </div>
   );
