@@ -20,7 +20,7 @@ const Play = () => {
 
   const [username, setUsername] = useState(localStorage.getItem("username"));
 
-  const [pos, setPos] = useState([]);
+  const [dots, setDots] = useState([]);
   const [finalPos, setFinalPos] = useState([]);
   const [gameProgress, setGameProgress] = useState();
   const [gameOver, setGameOver] = useState(false);
@@ -36,7 +36,7 @@ const Play = () => {
       console.log("game_continues");
       setGameProgress(game);
       setFinalPos(pos);
-      setPos([]);
+      setDots([]);
     });
     socket.on("new_challenge", (game) => {
       console.log(game);
@@ -51,12 +51,10 @@ const Play = () => {
   }, []);
 
   useEffect(() => {
-    if (pos.length >= 1) {
-      socket.emit("challenge_created", gameProgress.name, pos);
-
-      //
+    if (dots.length >= 3) {
+      socket.emit("challenge_created", gameProgress.name, dots);
     }
-  }, [pos]);
+  }, [dots]);
 
   const joinGame = (gname) => {
     socket.emit("join_game", gname, username);
@@ -98,7 +96,7 @@ const Play = () => {
       ) : currentScreen(gameProgress) == "waiting_to_join" ? (
         <WaitingToJoin />
       ) : currentScreen(gameProgress) == "creating_challenge" ? (
-        <CreateChallenge pos={pos} setPos={setPos} />
+        <CreateChallenge pos={dots} setPos={setDots} />
       ) : currentScreen(gameProgress) == "waiting_for_challenge" ? (
         <WaitingForChallenge />
       ) : currentScreen(gameProgress) == "waiting_for_opponent" ? (

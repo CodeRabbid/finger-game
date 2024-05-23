@@ -1,7 +1,36 @@
 import { useRef, useState } from "react";
+import Dot from "./Dot";
 
 const CreateChallenge = ({ pos, setPos }) => {
   const ref = useRef();
+
+  const handleDoTPlacement = (e) => {
+    const touch = e.touches[0];
+    const newPixelPosX = touch.pageX;
+    const newPixelPosY = touch.pageY;
+    let legit = true;
+    for (const p of pos) {
+      const pPixelPosX = (p[0] * ref.current.offsetWidth) / 100;
+      const pPixelPosY = (p[1] * ref.current.offsetHeight) / 100;
+      const a = newPixelPosX - pPixelPosX;
+      const b = newPixelPosY - pPixelPosY;
+      const c = Math.sqrt(a * a + b * b);
+      if (c <= 60) legit = false;
+      console.log(c);
+      console.log(legit);
+    }
+    if (legit) {
+      setPos((pos) => {
+        const posCopy = [...pos];
+        posCopy.push([
+          (touch.pageX / ref.current.offsetWidth) * 100,
+          (touch.pageY / ref.current.offsetHeight) * 100,
+        ]);
+        return posCopy;
+      });
+    }
+  };
+
   return (
     <div
       style={{
@@ -10,30 +39,10 @@ const CreateChallenge = ({ pos, setPos }) => {
         width: "100%",
       }}
       ref={ref}
-      onTouchStart={(e) => {
-        const touch = e.touches[0];
-        setPos((pos) => {
-          const posCopy = [...pos];
-          posCopy.push([
-            (touch.pageX / ref.current.offsetWidth) * 100,
-            (touch.pageY / ref.current.offsetHeight) * 100,
-          ]);
-          return posCopy;
-        });
-      }}
+      onTouchStart={handleDoTPlacement}
     >
       {pos.map((p, index) => (
-        <div
-          key={index}
-          style={{
-            position: "absolute",
-            left: `calc(${p[0]}% - 20px)`,
-            top: `calc(${p[1]}% - 20px)`,
-            height: 40,
-            width: 40,
-            backgroundColor: "blue",
-          }}
-        ></div>
+        <Dot pos={p} key={index} />
       ))}
     </div>
   );
