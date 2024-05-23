@@ -31,22 +31,8 @@ const SolvingChallenge = ({ initialPos, challengeSolved, initialTime }) => {
         width: "100%",
       }}
     >
-      <div
-        style={{
-          display: "table",
-          position: "absolute",
-          top: 0,
-          left: 0,
-          height: "100%",
-          width: "100%",
-        }}
-      >
-        <div
-          style={{
-            display: "table-cell",
-            verticalAlign: "middle",
-          }}
-        >
+      <div className="center-container-1">
+        <div className="center-container-2">
           <div
             className="centered-content"
             style={{ fontSize: 50, color: "#ffc445" }}
