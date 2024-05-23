@@ -5,11 +5,13 @@ import { SocketContext } from "../context/SocketContext.jsx";
 import PopUp from "../components/PopUp.jsx";
 
 const SelectRoom = ({ gamename, setGamename }) => {
+  const username = localStorage.getItem("username");
   const socket = useContext(SocketContext);
   const navigate = useNavigate();
-  const [username, setUsername] = useState(localStorage.getItem("username"));
-  const [challengePopUp, setChallengePopUp] = useState(false);
+  const [challengeReceivedPopUp, setChallengeReceivedPopUp] = useState(false);
+  const [challengeSentPopUp, setChallengeSentPopUp] = useState(false);
   const [challengerName, setChallengerName] = useState("");
+  const [challengeReceiverName, setChallengeReceiverName] = useState("");
   socket.connect();
 
   useEffect(() => {
@@ -18,7 +20,7 @@ const SelectRoom = ({ gamename, setGamename }) => {
     });
     socket.on("challenge_received", (challenger) => {
       setChallengerName(challenger);
-      setChallengePopUp(true);
+      setChallengeReceivedPopUp(true);
     });
 
     socket.on("accepted", () => {
@@ -38,11 +40,13 @@ const SelectRoom = ({ gamename, setGamename }) => {
 
   const challenge = (gname) => {
     socket.emit("challenge", gname, username);
+    setChallengeReceiverName(gname);
+    setChallengeSentPopUp(true);
   };
 
   const handleAccept = () => {
     console.log("accepting challenge");
-    setChallengePopUp(false);
+    setChallengeReceivedPopUp(false);
     socket.emit("accepted", challengerName);
     navigate(`/game/select?gamename=${challengerName}`);
   };
@@ -78,11 +82,21 @@ const SelectRoom = ({ gamename, setGamename }) => {
         </div>
       </div>
 
-      {challengePopUp ? (
+      {challengeReceivedPopUp ? (
         <PopUp
-          onDecline={() => setChallengePopUp(false)}
+          onDecline={() => setChallengeReceivedPopUp(false)}
           onAccept={() => handleAccept()}
           text={`Challenge from ${challengerName}`}
+          declineText={"Decline"}
+        />
+      ) : (
+        ""
+      )}
+      {challengeSentPopUp ? (
+        <PopUp
+          onDecline={() => setChallengeSentPopUp(false)}
+          text={`Waiting for ${challengeReceiverName} to accept... `}
+          declineText={"Cancel"}
         />
       ) : (
         ""

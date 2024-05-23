@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 
-const PopUp = ({ onDecline, onAccept, text }) => {
+const PopUp = ({ onDecline, onAccept, text, declineText }) => {
   return (
     <div className="center-container-1">
       <div className="center-container-2">
@@ -8,8 +8,6 @@ const PopUp = ({ onDecline, onAccept, text }) => {
           <div
             style={{
               display: "inline-block",
-              //   maxWidth: "200px",
-              //   minWidth: "200px",
               minHeight: "100px",
               backgroundColor: "var(--light-background)",
               textAlign: "center",
@@ -21,7 +19,13 @@ const PopUp = ({ onDecline, onAccept, text }) => {
               padding: "10px 10px 10px 10px",
             }}
           >
-            <p style={{ fontFamily: "Arial, sans-serif", color: "orange" }}>
+            <p
+              style={{
+                fontFamily: "Arial, sans-serif",
+                color: "orange",
+                margin: "17px 7px 17px 7px",
+              }}
+            >
               {text}
             </p>
             <div
@@ -43,26 +47,30 @@ const PopUp = ({ onDecline, onAccept, text }) => {
                 }}
                 onClick={() => onDecline()}
               >
-                decline
+                {declineText}
               </Button>
-              <Button
-                variant="contained"
-                style={{
-                  height: 50,
-                  width: 100,
-                  display: "inline-block",
-                  margin: "0px 7px 7px 10px",
-                  padding: "7px 7px 7px 7px",
-                  backgroundColor: "orange",
-                  color: "white",
-                  borderStyle: "solid",
-                  borderColor: "orange",
-                  borderWidth: "2px",
-                }}
-                onClick={() => onAccept()}
-              >
-                accept
-              </Button>
+              {onAccept ? (
+                <Button
+                  variant="contained"
+                  style={{
+                    height: 50,
+                    width: 100,
+                    display: "inline-block",
+                    margin: "0px 7px 7px 10px",
+                    padding: "7px 7px 7px 7px",
+                    backgroundColor: "orange",
+                    color: "white",
+                    borderStyle: "solid",
+                    borderColor: "orange",
+                    borderWidth: "2px",
+                  }}
+                  onClick={() => onAccept()}
+                >
+                  accept
+                </Button>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>

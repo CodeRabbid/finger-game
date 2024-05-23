@@ -46,22 +46,8 @@ const Login = () => {
         <Navigate to={"/"} />
       ) : (
         <>
-          <div
-            style={{
-              display: "table",
-              position: "absolute",
-              top: 0,
-              left: 0,
-              height: "100%",
-              width: "100%",
-            }}
-          >
-            <div
-              style={{
-                display: "table-cell",
-                verticalAlign: "middle",
-              }}
-            >
+          <div className="center-container-1">
+            <div className="center-container-2">
               <div className="centered-content">
                 <TextField
                   type="username"
