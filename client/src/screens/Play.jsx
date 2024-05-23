@@ -20,6 +20,7 @@ const SelectRoom = () => {
   const [challengerName, setChallengerName] = useState("");
   const [challengeReceiverName, setChallengeReceiverName] = useState("");
   const [numDots, setNumDots] = useState(1);
+  const [dotSize, setDotSize] = useState(30);
 
   const [gameProgress, setGameProgress] = useState();
   const [gameOver, setGameOver] = useState(false);
@@ -84,7 +85,7 @@ const SelectRoom = () => {
   };
 
   const challenge = (gname) => {
-    socket.emit("challenge", gname, username, numDots);
+    socket.emit("challenge", gname, username, numDots, dotSize);
     setChallengeReceiverName(gname);
     setChallengeSentPopUp(true);
   };
