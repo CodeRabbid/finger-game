@@ -9,7 +9,7 @@ import {
 import App from "./App.jsx";
 import Play from "./screens/Play.jsx";
 import Login from "./screens/Login.jsx";
-import SelectGame from "./screens/SelectGame.jsx";
+import SelectGame from "./screens/Play.jsx";
 import "./index.css";
 import { SocketProvider } from "./context/SocketContext.jsx";
 

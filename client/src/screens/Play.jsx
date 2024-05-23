@@ -5,12 +5,12 @@ import { SocketContext } from "../context/SocketContext.jsx";
 import PopUp from "../components/PopUp.jsx";
 import { Slider } from "@mui/material";
 
-import WaitingToJoin from "../components/WaitingToJoin";
-import CreateChallenge from "../components/CreateChallenge";
-import WaitingForChallenge from "../components/WaitingForChallenge";
-import WaitingForOpponent from "../components/WaitingForOpponent";
-import SolvingChallenge from "../components/SolvingChallenge";
-import GameOver from "../components/GameOver";
+import WaitingToJoin from "../components/WaitingToJoin.jsx";
+import CreateChallenge from "../components/CreateChallenge.jsx";
+import WaitingForChallenge from "../components/WaitingForChallenge.jsx";
+import WaitingForOpponent from "../components/WaitingForOpponent.jsx";
+import SolvingChallenge from "../components/SolvingChallenge.jsx";
+import GameOver from "../components/GameOver.jsx";
 
 const SelectRoom = () => {
   const username = localStorage.getItem("username");
