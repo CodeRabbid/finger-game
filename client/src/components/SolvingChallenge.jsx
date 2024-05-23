@@ -12,6 +12,8 @@ const SolvingChallenge = ({
     cl.push(false);
   }
   const [clicked, setClicked] = useState(cl);
+  const [screenTouched, setScreenTouched] = useState(false);
+  const [backscreenColor, setBackscreenColor] = useState("");
   const [time, setTime] = useState(
     new Date(Math.abs(new Date() - beginning + initialTime))
   );
@@ -25,11 +27,11 @@ const SolvingChallenge = ({
   }, []);
 
   useEffect(() => {
-    let finished = true;
+    let touched_all = true;
     for (let i = 0; i < numDots; i++) {
-      if (!clicked[i]) finished = false;
+      if (!clicked[i]) touched_all = false;
     }
-    if (finished) {
+    if (touched_all && !screenTouched) {
       console.log(Math.abs(time));
       challengeSolved(Math.abs(time));
       setClicked([false]);
@@ -56,6 +58,22 @@ const SolvingChallenge = ({
           </div>
         </div>
       </div>
+      <div
+        style={{
+          position: "absolute",
+          height: "100%",
+          width: "100%",
+          backgroundColor: backscreenColor,
+        }}
+        onTouchStart={() => {
+          setBackscreenColor("red");
+          setScreenTouched(true);
+        }}
+        onTouchEnd={() => {
+          setBackscreenColor("");
+          setScreenTouched(false);
+        }}
+      ></div>
       {initialPos.map((p, index) => (
         <div
           key={index}
@@ -68,13 +86,13 @@ const SolvingChallenge = ({
             backgroundColor: "#ff4545",
             borderRadius: "50%",
           }}
-          onTouchStart={() =>
+          onTouchStart={() => {
             setClicked((clicked) => {
               const clickedCopy = [...clicked];
               clickedCopy[index] = true;
               return clickedCopy;
-            })
-          }
+            });
+          }}
           onTouchEnd={() =>
             setClicked((clicked) => {
               const clickedCopy = [...clicked];
