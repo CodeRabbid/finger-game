@@ -7,9 +7,9 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import App from "./App.jsx";
-import Play from "./screens/Play.jsx";
+import Play from "./screens/GameMain.jsx";
 import Login from "./screens/Login.jsx";
-import SelectGame from "./screens/Play.jsx";
+import SelectGame from "./screens/GameMain.jsx";
 import "./index.css";
 import { SocketProvider } from "./context/SocketContext.jsx";
 
