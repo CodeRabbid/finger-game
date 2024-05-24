@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Dot from "./Dot.jsx";
+import Dot from "../components/Dot.jsx";
 
 const SolvingChallenge = ({
   initialPos,

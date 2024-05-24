@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import Dot from "./Dot";
+import Dot from "../components/Dot";
 
 const CreateChallenge = ({ pos, setPos, dotSize }) => {
   const ref = useRef();
@@ -15,7 +15,7 @@ const CreateChallenge = ({ pos, setPos, dotSize }) => {
       const a = newPixelPosX - pPixelPosX;
       const b = newPixelPosY - pPixelPosY;
       const c = Math.sqrt(a * a + b * b);
-      if (c <= dotSize) legit = false;
+      if (c < dotSize) legit = false;
       console.log(c);
       console.log(legit);
     }

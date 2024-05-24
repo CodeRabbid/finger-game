@@ -1,4 +1,4 @@
-const Dot = ({ pos, dotSize, onTouchStart, onTouchEnd }) => {
+const Dot = ({ pos = [0, 0], dotSize, onTouchStart, onTouchEnd }) => {
   return (
     <div
       style={{

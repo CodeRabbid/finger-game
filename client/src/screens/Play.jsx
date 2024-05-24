@@ -1,16 +1,16 @@
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { SocketContext } from "../context/SocketContext.jsx";
 import PopUp from "../components/PopUp.jsx";
 import { Slider } from "@mui/material";
 
-import WaitingToJoin from "../components/WaitingToJoin.jsx";
-import CreateChallenge from "../components/CreateChallenge.jsx";
-import WaitingForChallenge from "../components/WaitingForChallenge.jsx";
-import WaitingForOpponent from "../components/WaitingForOpponent.jsx";
-import SolvingChallenge from "../components/SolvingChallenge.jsx";
-import GameOver from "../components/GameOver.jsx";
+import WaitingToJoin from "./WaitingToJoin.jsx";
+import CreateChallenge from "./CreateChallenge.jsx";
+import WaitingForChallenge from "./WaitingForChallenge.jsx";
+import WaitingForOpponent from "./WaitingForOpponent.jsx";
+import SolvingChallenge from "./SolvingChallenge.jsx";
+import Dot from "../components/Dot.jsx";
+import GameOver from "./GameOver.jsx";
 
 const SelectRoom = () => {
   const username = localStorage.getItem("username");
@@ -26,6 +26,8 @@ const SelectRoom = () => {
   const [gameOver, setGameOver] = useState(false);
   const [dots, setDots] = useState([]);
   const [finalPos, setFinalPos] = useState([]);
+
+  const [sliderDots, setSliderDots] = useState([]);
 
   socket.connect();
 
@@ -74,6 +76,14 @@ const SelectRoom = () => {
       socket.emit("challenge_created", gameProgress.name, dots);
     }
   }, [dots]);
+
+  useEffect(() => {
+    const slDots = [];
+    for (let i = 0; i < numDots; i++) {
+      slDots.push(0);
+    }
+    setSliderDots(slDots);
+  }, [numDots]);
 
   const [games, setGames] = useState([]);
 
@@ -141,20 +151,35 @@ const SelectRoom = () => {
                 className="centered-content"
                 style={{ fontWeight: "normal", fontSize: 25 }}
               >
-                Number of dots:
+                Setup challenge:
               </div>
               <br />
               <div
                 className="centered-content"
-                style={{ fontWeight: "normal", fontSize: 25 }}
+                style={{ width: 220, height: 20 }}
               >
+                {sliderDots.map((num) => {
+                  console.log(num);
+                  return (
+                    <div
+                      style={{
+                        float: "left",
+                        height: 20,
+                        width: 20,
+                        backgroundColor: "var(--dot-color)",
+                        borderRadius: "50%",
+                      }}
+                    ></div>
+                  );
+                })}
+              </div>
+              <div className="centered-content">
                 <Slider
-                  style={{ width: 150, color: "orange" }}
+                  style={{ width: 200, color: "orange" }}
                   min={1}
-                  max={5}
+                  max={11}
                   aria-label="numDots"
                   value={numDots}
-                  valueLabelDisplay="auto"
                   onChange={(e) => {
                     setNumDots(e.target.value);
                   }}
@@ -165,16 +190,35 @@ const SelectRoom = () => {
                 style={{ fontWeight: "normal", fontSize: 25 }}
               >
                 <Slider
-                  style={{ width: 150, color: "orange" }}
+                  style={{ width: 200, color: "orange" }}
                   min={20}
                   max={100}
                   aria-label="dotSize"
                   value={dotSize}
-                  valueLabelDisplay="auto"
                   onChange={(e) => {
                     setDotSize(e.target.value);
                   }}
                 />
+              </div>
+              <div
+                className="centered-content"
+                style={{
+                  display: "table",
+                  height: 100,
+                  width: 100,
+                }}
+              >
+                <div className="center-container-2">
+                  <div
+                    className="centered-content"
+                    style={{
+                      height: dotSize,
+                      width: dotSize,
+                      backgroundColor: "var(--dot-color)",
+                      borderRadius: "50%",
+                    }}
+                  ></div>
+                </div>
               </div>
               <br />
               <div
