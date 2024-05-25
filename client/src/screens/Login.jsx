@@ -9,7 +9,7 @@ const Login = () => {
   const [repassword, setRepassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loggedIn, setLoggedIn] = useState(1);
-  const [registering, setRegistering] = useState(true);
+  const [registering, setRegistering] = useState(false);
 
   const register = async () => {
     try {

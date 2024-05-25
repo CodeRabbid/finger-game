@@ -7,17 +7,18 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import App from "./App.jsx";
-import Play from "./screens/GameMain.jsx";
 import Login from "./screens/Login.jsx";
 import SelectGame from "./screens/GameMain.jsx";
+import PrivateRoute from "./components/PrivateRoute.jsx";
 import "./index.css";
 import { SocketProvider } from "./context/SocketContext.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      <Route index={true} path="/game/select" element={<Play />} />
-      <Route index={true} path="/" element={<SelectGame />} />
+      <Route path="" element={<PrivateRoute />}>
+        <Route index={true} path="/" element={<SelectGame />} />
+      </Route>
       <Route index={true} path="/login" element={<Login />} />
     </Route>
   )
