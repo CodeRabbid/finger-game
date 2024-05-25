@@ -34,19 +34,15 @@ const SelectRoom = () => {
     });
 
     socket.on("game_continues", (game, pos, id) => {
-      console.log("game_continues");
       setGameProgress(game);
       setFinalPos(pos);
       setDots([]);
     });
 
     socket.on("new_challenge", (game) => {
-      console.log(game);
-      console.log("new_challenge");
       setGameProgress(game);
     });
     socket.on("game_over", (game) => {
-      console.log("game_over");
       setGameProgress(game);
       setGameOver(game);
     });
@@ -62,7 +58,6 @@ const SelectRoom = () => {
     if (gameProgress.player1.name == username) {
       return gameProgress.player1.time;
     } else if (gameProgress.player2.name == username) {
-      console.log(gameProgress.player2.time);
       return gameProgress.player2.time;
     }
   };
@@ -78,10 +73,8 @@ const SelectRoom = () => {
       return "waiting_to_join";
     } else {
       if (gameProgress.player1.name == username) {
-        console.log(gameProgress.player1.state);
         return gameProgress.player1.state;
       } else if (gameProgress.player2.name == username) {
-        console.log(gameProgress.player2.state);
         return gameProgress.player2.state;
       }
     }

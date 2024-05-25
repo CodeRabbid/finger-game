@@ -49,14 +49,12 @@ const SetupChallenge = ({ numDots, setNumDots, dotSize, setDotSize }) => {
   const getGames = async () => {
     const { data } = await axios.post("/api/game/all", { username });
     setGames(data.games);
-    console.log(data.games);
   };
 
   const handleAccept = () => {
     setChallengeReceivedPopUp(false);
     socket.emit("accepted", challengerName);
     socket.emit("join_game", challengerName, username, numDots);
-    // navigate(`/game/select?gamename=${challengerName}`);
   };
 
   return (
@@ -71,20 +69,17 @@ const SetupChallenge = ({ numDots, setNumDots, dotSize, setDotSize }) => {
           </div>
           <br />
           <div className="centered-content" style={{ width: 220, height: 20 }}>
-            {sliderDots.map((num) => {
-              console.log(num);
-              return (
-                <div
-                  style={{
-                    float: "left",
-                    height: 20,
-                    width: 20,
-                    backgroundColor: "var(--dot-color)",
-                    borderRadius: "50%",
-                  }}
-                ></div>
-              );
-            })}
+            {sliderDots.map((num) => (
+              <div
+                style={{
+                  float: "left",
+                  height: 20,
+                  width: 20,
+                  backgroundColor: "var(--dot-color)",
+                  borderRadius: "50%",
+                }}
+              ></div>
+            ))}
           </div>
           <div className="centered-content">
             <Slider
