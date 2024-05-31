@@ -3,6 +3,7 @@ import { Slider } from "@mui/material";
 import axios from "axios";
 import { SocketContext } from "../context/SocketContext.jsx";
 import PopUp from "../components/PopUp.jsx";
+import "./SetupChallenge.css";
 
 const SetupChallenge = ({ numDots, setNumDots, dotSize, setDotSize }) => {
   const socket = useContext(SocketContext);
@@ -74,25 +75,29 @@ const SetupChallenge = ({ numDots, setNumDots, dotSize, setDotSize }) => {
           ></div>
           <div
             className="centered-content"
-            style={{ width: 220, height: 20, marginBottom: 10 }}
+            style={{
+              width: 220,
+              height: 20,
+              marginBottom: 10,
+            }}
           >
-            <Slider
-              style={{
-                width: 200,
-                color: "orange",
-                position: "absolute",
-                left: 10,
-                top: -12,
-                color: "transparent",
-              }}
-              min={1}
-              max={11}
-              aria-label="numDots"
-              value={numDots}
-              onChange={(e) => {
-                setNumDots(e.target.value);
-              }}
-            />
+            <div>
+              <div className="num-dots-slider">
+                <Slider
+                  style={{
+                    width: 200,
+                    color: "transparent",
+                  }}
+                  min={1}
+                  max={11}
+                  aria-label="numDots"
+                  value={numDots}
+                  onChange={(e) => {
+                    setNumDots(e.target.value);
+                  }}
+                />
+              </div>
+            </div>
             {sliderDots.map((num) => (
               <div
                 style={{

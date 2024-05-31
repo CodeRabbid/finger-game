@@ -1,0 +1,12 @@
+.num-dots-slider {
+  width: 200;
+  position: absolute;
+  left: 10px;
+  top: -5px;
+}
+
+@media only screen and (max-width: 600px) {
+  .num-dots-slider {
+    top: -12px;
+  }
+}
