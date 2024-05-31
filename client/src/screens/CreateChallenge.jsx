@@ -32,19 +32,28 @@ const CreateChallenge = ({ pos, setPos, dotSize }) => {
   };
 
   return (
-    <div
-      style={{
-        position: "relative",
-        height: "100%",
-        width: "100%",
-      }}
-      ref={ref}
-      onTouchStart={handleDoTPlacement}
-    >
-      {pos.map((p, index) => (
-        <Dot pos={p} key={index} dotSize={dotSize} />
-      ))}
-    </div>
+    <>
+      <div className="center-container-1">
+        <div className="center-container-2">
+          <div className="centered-content large-font">
+            <div>Create a Challenge!</div>
+          </div>
+        </div>
+      </div>
+      <div
+        style={{
+          position: "relative",
+          height: "100%",
+          width: "100%",
+        }}
+        ref={ref}
+        onTouchStart={handleDoTPlacement}
+      >
+        {pos.map((p, index) => (
+          <Dot pos={p} key={index} dotSize={dotSize} />
+        ))}
+      </div>
+    </>
   );
 };
 

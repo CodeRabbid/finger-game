@@ -11,22 +11,24 @@ const GameOver = ({ gameProgress, newGame }) => {
     <>
       <div className="center-container-1">
         <div className="center-container-2">
-          <div className="centered-content">
+          <div className="centered-content large-font">
             {gameProgress.player1.name} -{" "}
             {String(time1.getMinutes()).padStart(2, "0")}:
             {String(time1.getSeconds()).padStart(2, "0")}:
             {String(Math.floor(time1.getMilliseconds() / 10)).padStart(2, "0")}
           </div>
-          <div className="centered-content">
+          <div className="centered-content large-font">
             {gameProgress.player2.name} -{" "}
             {String(time2.getMinutes()).padStart(2, "0")}:
             {String(time2.getSeconds()).padStart(2, "0")}:
             {String(Math.floor(time2.getMilliseconds() / 10)).padStart(2, "0")}
           </div>
           <br />
-          <div className="centered-content">{winner} is the winner! 🎉🎉🎉</div>
+          <div className="centered-content large-font">
+            {winner} is the winner! 🎉🎉🎉
+          </div>
           <br />
-          <div className="centered-content">
+          <div className="centered-content large-font">
             <Button
               variant="contained"
               style={{
