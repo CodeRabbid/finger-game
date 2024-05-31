@@ -113,21 +113,6 @@ const SetupChallenge = ({ numDots, setNumDots, dotSize, setDotSize }) => {
 
           <div
             className="centered-content"
-            style={{ fontWeight: "normal", fontSize: 25 }}
-          >
-            <Slider
-              style={{ width: 200, color: "orange" }}
-              min={20}
-              max={100}
-              aria-label="dotSize"
-              value={dotSize}
-              onChange={(e) => {
-                setDotSize(e.target.value);
-              }}
-            />
-          </div>
-          <div
-            className="centered-content"
             style={{
               display: "table",
               height: 100,
@@ -145,6 +130,21 @@ const SetupChallenge = ({ numDots, setNumDots, dotSize, setDotSize }) => {
                 }}
               ></div>
             </div>
+          </div>
+          <div
+            className="centered-content"
+            style={{ fontWeight: "normal", fontSize: 25 }}
+          >
+            <Slider
+              style={{ width: 200, color: "orange" }}
+              min={20}
+              max={100}
+              aria-label="dotSize"
+              value={dotSize}
+              onChange={(e) => {
+                setDotSize(e.target.value);
+              }}
+            />
           </div>
           <br />
           <div
