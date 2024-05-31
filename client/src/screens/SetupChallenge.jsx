@@ -136,7 +136,7 @@ const SetupChallenge = ({ numDots, setNumDots, dotSize, setDotSize }) => {
             style={{ fontWeight: "normal", fontSize: 25 }}
           >
             <Slider
-              style={{ width: 200, color: "orange" }}
+              style={{ width: 200, color: "var(--dot-color)" }}
               min={20}
               max={100}
               aria-label="dotSize"
