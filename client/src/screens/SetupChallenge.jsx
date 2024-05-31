@@ -82,7 +82,7 @@ const SetupChallenge = ({ numDots, setNumDots, dotSize, setDotSize }) => {
                 color: "orange",
                 position: "absolute",
                 left: 10,
-                top: -5,
+                top: -12,
                 color: "transparent",
               }}
               min={1}
