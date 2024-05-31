@@ -68,7 +68,31 @@ const SetupChallenge = ({ numDots, setNumDots, dotSize, setDotSize }) => {
             Setup challenge:
           </div>
           <br />
-          <div className="centered-content" style={{ width: 220, height: 20 }}>
+          <div
+            className="centered-content"
+            style={{ position: "absolute", left: 0 }}
+          ></div>
+          <div
+            className="centered-content"
+            style={{ width: 220, height: 20, marginBottom: 10 }}
+          >
+            <Slider
+              style={{
+                width: 200,
+                color: "orange",
+                position: "absolute",
+                left: 10,
+                top: -5,
+                color: "transparent",
+              }}
+              min={1}
+              max={11}
+              aria-label="numDots"
+              value={numDots}
+              onChange={(e) => {
+                setNumDots(e.target.value);
+              }}
+            />
             {sliderDots.map((num) => (
               <div
                 style={{
@@ -81,18 +105,7 @@ const SetupChallenge = ({ numDots, setNumDots, dotSize, setDotSize }) => {
               ></div>
             ))}
           </div>
-          <div className="centered-content">
-            <Slider
-              style={{ width: 200, color: "orange" }}
-              min={1}
-              max={11}
-              aria-label="numDots"
-              value={numDots}
-              onChange={(e) => {
-                setNumDots(e.target.value);
-              }}
-            />
-          </div>
+
           <div
             className="centered-content"
             style={{ fontWeight: "normal", fontSize: 25 }}
