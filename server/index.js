@@ -89,10 +89,6 @@ io.on("connection", (socket) => {
     }
   };
 
-  socket.on("accepted", (username) => {
-    socket.to(username).emit("accepted");
-  });
-
   socket.on("challenge_created", async (gamename, pos) => {
     console.log("challenge_created");
     const game = await Game.findOne({ name: gamename });
