@@ -39,9 +39,6 @@ const GameOver = ({ gameProgress, newGame }) => {
                 padding: "7px 7px 7px 7px",
                 backgroundColor: "orange",
                 color: "white",
-                borderStyle: "solid",
-                borderColor: "orange",
-                borderWidth: "2px",
                 fontSize: 20,
               }}
               onClick={() => newGame()}
