@@ -62,7 +62,7 @@ const SetupChallenge = ({ numDots, setNumDots, dotSize, setDotSize }) => {
       <div className="center-container-1">
         <div className="center-container-2">
           <div
-            className="centered-content"
+            className="centered-content large-font"
             style={{ fontWeight: "normal", fontSize: 25 }}
           >
             Setup challenge:
@@ -130,7 +130,7 @@ const SetupChallenge = ({ numDots, setNumDots, dotSize, setDotSize }) => {
           </div>
           <br />
           <div
-            className="centered-content"
+            className="centered-content large-font"
             style={{ fontWeight: "normal", fontSize: 25 }}
           >
             Choose an opponent:

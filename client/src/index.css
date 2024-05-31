@@ -35,11 +35,14 @@ body {
 .centered-content {
   font-family: Arial, sans-serif;
   font-weight: bold;
-  color: orange;
   margin-left: auto;
   margin-right: auto;
   display: table;
   position: relative;
-  font-size: 30px;
   text-align: center;
+}
+
+.large-font {
+  color: orange;
+  font-size: 30px;
 }

@@ -12,17 +12,21 @@ const Login = () => {
   const [registering, setRegistering] = useState(false);
 
   const register = async () => {
-    try {
-      const { data } = await axios.post("/api/register", {
-        username,
-        password,
-      });
-      localStorage.setItem("access_token", data.access_token);
-      localStorage.setItem("username", data.username);
-      setLoggedIn(2);
-    } catch (err) {
-      console.log(err);
-      console.log(setErrorMessage(err.message));
+    if (password !== repassword) {
+      setErrorMessage("passwords don't macht");
+    } else {
+      try {
+        const { data } = await axios.post("/api/register", {
+          username,
+          password,
+        });
+        localStorage.setItem("access_token", data.access_token);
+        localStorage.setItem("username", data.username);
+        setLoggedIn(2);
+      } catch (err) {
+        console.log(err);
+        setErrorMessage(err.message);
+      }
     }
   };
 
@@ -37,7 +41,7 @@ const Login = () => {
       setLoggedIn(2);
     } catch (err) {
       console.log(err);
-      console.log(setErrorMessage(err.message));
+      setErrorMessage(err.message);
     }
   };
   return (
@@ -60,6 +64,7 @@ const Login = () => {
                   }}
                   color="warning"
                   placeholder="Name"
+                  onFocus={() => setErrorMessage("")}
                 />
               </div>
               <div className="centered-content">
@@ -74,10 +79,9 @@ const Login = () => {
                   }}
                   color="warning"
                   placeholder="Password"
+                  onFocus={() => setErrorMessage("")}
                 />
               </div>
-
-              <div className="centered-content"> {errorMessage}</div>
 
               {registering ? (
                 <>
@@ -94,7 +98,20 @@ const Login = () => {
                         backgroundColor: "#fcfaae",
                       }}
                       placeholder="Retype Password"
+                      onFocus={() => setErrorMessage("")}
                     />
+                  </div>
+
+                  <div
+                    className="centered-content"
+                    style={{
+                      color: "red",
+                      marginTop: "5px",
+                      marginBottom: "5px",
+                    }}
+                  >
+                    {" "}
+                    {errorMessage}
                   </div>
                   <div className="centered-content">
                     <Button
@@ -124,6 +141,17 @@ const Login = () => {
                 </>
               ) : (
                 <>
+                  <div
+                    className="centered-content"
+                    style={{
+                      color: "red",
+                      marginTop: "5px",
+                      marginBottom: "5px",
+                    }}
+                  >
+                    {" "}
+                    {errorMessage}
+                  </div>
                   <div className="centered-content">
                     <Button
                       variant="contained"
@@ -138,6 +166,7 @@ const Login = () => {
                       Login
                     </Button>
                   </div>
+
                   <div className="centered-content">
                     <Button
                       style={{
