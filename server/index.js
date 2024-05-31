@@ -49,9 +49,6 @@ io.on("connection", (socket) => {
   console.log(`User Connected: ${socket.id}`);
 
   socket.on("join_game", async (gamename, username, numDots) => {
-    console.log(gamename);
-    console.log(username);
-    console.log(numDots);
     // const game = games.find((g) => g.name == gamename);
     const game = await Game.findOne({ name: gamename });
     if (game.player1.name != username) {
@@ -90,7 +87,6 @@ io.on("connection", (socket) => {
   };
 
   socket.on("challenge_created", async (gamename, pos) => {
-    console.log("challenge_created");
     const game = await Game.findOne({ name: gamename });
 
     game.player1 = { ...game.player1, state: nextState(game.player1.state) };
@@ -107,8 +103,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("challenge", (username, challenger_username, numDots, dotSize) => {
-    console.log(challenger_username);
-    console.log(numDots);
     socket
       .to(username)
       .emit("challenge_received", challenger_username, numDots, dotSize);
@@ -128,8 +122,6 @@ io.on("connection", (socket) => {
     }
 
     game.games_played += 1;
-    console.log(game.games_played);
-    console.log(delta);
     await game.save();
 
     if (game.games_played >= 2) {
