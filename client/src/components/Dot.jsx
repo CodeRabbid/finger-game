@@ -1,4 +1,7 @@
+import { useState } from "react";
+
 const Dot = ({ pos = [0, 0], dotSize, onTouchStart, onTouchEnd }) => {
+  const [dotColor, setDotColor] = useState("var(--dot-color)");
   return (
     <div
       style={{
@@ -7,11 +10,17 @@ const Dot = ({ pos = [0, 0], dotSize, onTouchStart, onTouchEnd }) => {
         top: `calc(${pos[1]}% - ${dotSize / 2}px)`,
         height: dotSize,
         width: dotSize,
-        backgroundColor: "var(--dot-color)",
+        backgroundColor: dotColor,
         borderRadius: "50%",
       }}
-      onTouchStart={onTouchStart}
-      onTouchEnd={onTouchEnd}
+      onTouchStart={() => {
+        setDotColor("blue");
+        onTouchStart();
+      }}
+      onTouchEnd={() => {
+        setDotColor("var(--dot-color)");
+        onTouchEnd();
+      }}
     ></div>
   );
 };
