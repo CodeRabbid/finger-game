@@ -14,7 +14,7 @@ const SelectRoom = () => {
   const username = localStorage.getItem("username");
   const socket = useContext(SocketContext);
 
-  const [numDots, setNumDots] = useState(1);
+  const [numDots, setNumDots] = useState(5);
   const [dotSize, setDotSize] = useState(60);
 
   const [gameProgress, setGameProgress] = useState();

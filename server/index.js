@@ -124,7 +124,7 @@ io.on("connection", (socket) => {
     game.games_played += 1;
     await game.save();
 
-    if (game.games_played >= 2) {
+    if (game.games_played >= 6) {
       socket.emit("game_over", game);
       socket.to(gamename).emit("game_over", game);
     } else {
