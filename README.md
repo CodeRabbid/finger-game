@@ -4,16 +4,24 @@ The project is deployed on Render, [here is the link](https://finger-game.onrend
 
 Just create an simple account and choose an opponent to play with!
 
-To run the project locally, first install the dependencies
+To run the project locally, first install dependencies and start the server:
 
 ```sh
-npm install
+cd server && npm install
 ```
 
-, and then run
+```sh
+cd server && npm start
+```
+
+, and then the same with the client:
 
 ```sh
-npm start
+cd client && npm install
+```
+
+```sh
+cd client && npm start
 ```
 
 Have fun!
